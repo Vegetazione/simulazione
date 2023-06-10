@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+<body>
+    <script>
+{
+/* 
+Esercizio 1: Letterali oggetti
+Scrivi una funzione che prenda in input un array di 6 oggetti rappresentanti persone (nome, cognome, età) e
+restituisca un nuovo array contenente solo le persone con un'età superiore a 30 anni. Stampare le informazioni
+di tutte le persone del nuovo array.
+*/
+let person = [
+  { name: 'Antonino', surname: 'Rossi', age: 25 },
+  { name: 'Luigino', surname: 'Bianchi', age: 35 },
+  { name: 'Michele', surname: 'Verdi', age: 40 },
+  { name: 'Lucrezia', surname: 'Neri', age: 50 },
+  { name: 'Marianna', surname: 'Gialli', age: 20 },
+  { name: 'Anna', surname: 'Marroni', age: 45 }
+];
+
+function filterPerson(people) {
+  
+  const filtro = people.filter (person => person.age > 30);
+  
+  filtro.forEach(person =>{
+    console.log(`${person.name} ${person.surname}, ${person.age} anni`);
+  } )
+
+  return filtro
+}
+(filterPerson(person))
+
+//let over30 = filterPerson(person);
+//console.log(over30);
+
+console.log("-----------------------------------------");
+}
+
+{
+/* 
+Esercizio 2: Map
+Scrivi una funzione chiamata moltiplicaArray che prenda in input un array di numeri e un numero intero, che
+funge da "fattore di moltiplicazione". La funzione deve restituire un nuovo array in cui ogni numero dell'array
+originale è moltiplicato per il fattore di moltiplicazione dato.
+Chiamare la funzione 3 volte, con 3 array e 3 fattori di moltiplicazione differenti per stampare in output i 3
+array prodotti.
+*/
+function moltiplicaArray(arr,fattore) {
+    let mapArr= arr.map(n => n*fattore)
+    return mapArr
+}
+
+let myArray=[1,2,3,4,5]
+let fattoreMoltiplicazione=5
+let nuovoArray= moltiplicaArray(myArray,fattoreMoltiplicazione)
+console.log(nuovoArray);
+
+let myArray2=[10,20,30,40,50]
+let fattoreMoltiplicazione2=2
+let nuovoArray2= moltiplicaArray(myArray2,fattoreMoltiplicazione2)
+console.log(nuovoArray2);
+
+let myArray3=[100,200,300,400,500]
+let fattoreMoltiplicazione3=3
+let nuovoArray3= moltiplicaArray(myArray3,fattoreMoltiplicazione3)
+console.log(nuovoArray3);
+
+
+console.log("-----------------------------------------");
+}
+{
+/*
+Esercizio 3: Set
+Scrivi una funzione chiamata unisciSet che prenda in input due set composti da 5 numeri ciascuno, e restituisca
+un nuovo set contenente tutti gli elementi del primo che NON sono presenti nel secondo.
+Stampare in output il set risultante
+*/
+function diffSet(set1,set2) {
+    let set3 =new Set()
+        set1.forEach(element => {
+            if (set2.has(element)==false) {
+              set3.add(element)  
+            }
+        });
+        return set3
+}
+
+let set1=new Set([10,20,30,40,50])
+let set2=new Set([40,50,60,70,80])
+console.log(diffSet(set1,set2));
+
+console.log("-----------------------------------------");
+}
+{
+/* es 4
+Crea una funzione chiamata salutaPersona che prende in ingresso un oggetto.
+Se l'oggetto passato come parametro NON ha una proprietà chiamata "rate", la funzione stampa il messaggio
+"nessun rate". In caso contrario, se il valore della proprietà rate è compreso tra 0 e 10, stampa "rate basso", se
+è compreso tra 11 e 50 stampa "rate medio", se è compreso tra 51 e 100 stampa "rate alto".
+es
+salutaPersona({nome: mario rossi}) -> nessun rate
+salutaPersona(rate: 95) -> rate alto
+*/
+function salutaPersona(persona) {
+  if (persona.rate == null) {
+    console.log("nessun rate");
+  }
+   else if (persona.rate >= 0 && persona.rate <= 10) {
+    console.log("rate basso");
+  }
+   else if (persona.rate >= 11 && persona.rate <= 50) {
+    console.log("rate medio");
+  }
+   else if (persona.rate >= 51 && persona.rate <= 100) {
+    console.log("rate alto");
+  }
+}
+
+let persona = { nome: "antonio" }
+salutaPersona(persona)
+
+let persona2 = { rate: 6 }
+salutaPersona(persona2)
+
+let persona3 = { rate: 24 }
+salutaPersona(persona3)
+
+let persona4 = { rate: 77 }
+salutaPersona(persona4)
+
+console.log("-----------------------------------------");
+}
+{
+/* 
+    Esercizio 5: Date
+Scrivi una funzione chiamata calcolaGiorni che prenda in input due oggetti Date rappresentanti due date
+diverse e restituisca il numero di giorni trascorsi tra le due date.
+Chiamare la funzione per stampare in output il risultato.
+La funzione deve prendere in considerazione questa caratteristica: se la seconda data è un giorno
+cronologicamente pari o successivo alla prima data, si procede con la normale esecuzione sopra elencata.
+Se la seconda data è un giorno cronologicamente precedente alla prima data, viene prodotto manualmente un
+errore che blocca l'applicazione.
+*/
+function calcolaGiorni(data1,data2) {
+    if (data2<data1) {
+        throw new Error("Errore!La seconda Data deve essere successiva alla prima Data")
+    }
+
+    let giornoMs=1000*60*60*24
+    let diffMs=data2.getTime()- data1.getTime()
+    let diffGg=diffMs/giornoMs
+    return parseInt(diffGg)
+
+}
+let data1=new Date("2022-05-01")
+let data2=new Date("2022-05-11")
+console.log(calcolaGiorni(data1,data2));
+
+let data3=new Date("2023-05-01")
+let data4=new Date("2023-04-11")
+//console.log(calcolaGiorni(data3,data4));
+
+
+console.log("-----------------------------------------");
+}
+{
+
+    /* Esercizio 6: Letterali oggetti medio
+Scrivi una funzione confrontaOggetti che prenda in input due oggetti con caratteristiche (proprietà e valori)
+scelti a piacere e restituisca true se hanno le stesse proprietà e se tutti i valori delle loro proprietà
+corrispondenti sono uguali, altrimenti false.
+es
+o1 = {nome: mario, cognome = rossi}
+o2 = {nome: mario, cognome = rossi}
+confrontaOggetti(o1, o2) da true
+o1 = {nome: mario, cognome = rossi}
+o2 = {x: 10, y = 20}
+confrontaOggetti(o1, o2) da false */
+
+function confrontaOggetti(obj1,obj2) {
+    for (let key in obj1) {
+        //console.log(key);
+         if (!(key in obj2) || obj1[key] !=obj2[key]) {
+            return false
+    }
+  
+}
+
+return true
+
+}
+let o1 = {nome: "mario", cognome : "Rossi"}
+let o2 = {nome: "mario", cognome : "Rossi"}
+let o3={x: 10, y : 20}
+
+console.log(confrontaOggetti(o1,o2));
+console.log(confrontaOggetti(o1,o3));
+
+console.log("-----------------------------------------");
+}
+{
+/* Esercizio 7: Funzioni come parametri e metodo map
+Scrivi una funzione chiamata mappaNumeri, che prende come primo parametro un array di numeri, e come
+secondo parametro una funzione che internamente a mappaNumeri sarà utilizzata come parametro per il
+metodo map, chiamato per creare un nuovo array con il criterio utilizzato dalla funzione passata. Questo array
+verrà stampato internamente a mappaNumeri.
+Chiamare la funzione mappaNumeri 2 volte, sia per stampare il doppio dei numeri dell'array passato come
+primo parametro, sia per stampare i suoi numeri aumentati di 10.
+es
+mappaNumeri( [10, 20, 30], ?fn? ) stampa 20 40 60
+mappaNumeri( [10, 20, 30], ?fn? ) stampa 20 30 40
+dove ?fn? saranno le apposite funzioni passate come parametro create da voi */
+
+function mappaNumeri(arr,fn) {
+  let myMap= arr.map(fn) //https://www.freecodecamp.org/italian/news/javascript-map/
+  return myMap
+}
+function doppio(n) {
+    return n*2
+}
+function incremento(n) {
+    return n + 10
+}
+let myArray=[10,20,30]
+console.log(mappaNumeri(myArray,doppio)); 
+console.log( mappaNumeri(myArray,incremento));
+
+let x= ( mappaNumeri(myArray,incremento));
+console.log(x.join(" "));
+let y=(mappaNumeri(myArray,doppio)) 
+console.log(y.join(" "));
+
+console.log("-----------------------------------------");
+
+
+}
+{
+
+/* Addioooo
+Esercizio 1
+Dato il seguente JSON:
+[
+{"name": "aladddin", "rate": [5,6,7], "birthdate": "1990-10-10"},
+{"name": "jasmine", "rate": [8,9,9], "birthdate": "1994-09-09"},
+{"name": "abu", "rate": [2,2,3], "birthdate": "1993-10-20"}
+]
+convertirlo in una controparte Javascript da utilizzare nel programma.
+Creare una funzione chiamata dammiPersonaggio, che prende in ingresso come primo parametro un array di
+personaggi come quello prodotto dal JSON.
+Come secondo parametro, prende una stringa.
+Se la stringa è "cicla", la funzione stampa le informazioni di tutti i personaggi.
+Se la stringa è "giovane", la funzione stampa le informazioni del personaggio più giovane.
+Se la stringa è "migliore", la funzione stampa le informazioni del personaggio con la media rate più alta.
+Se la stringa è "peggiore", la funzione stampa le informazioni del personaggio con la media rate più bassa.
+Se il secondo parametro non è una stringa, generare un errore manualmente.
+Chiamare la funzione dammiPersonaggio con tutti i test case, impedendo che l'applicazione si blocchi se non
+viene passata una stringa (hint: usare un try/catch).
+Quando si stampano le informazioni di un personaggio, non bisogna stampare la sua data di nascita, ma la sua
+età (es 30 anni).
+Solo per i rate tenere in considerazione eventuali "parità" e stampare tutti i personaggi con il rate migliore o
+peggiore in caso di concomitanze.
+
+
+*/
+const person = `[
+{"name": "aladddin",
+"rate": [5,6,7],
+"birthdate": "1990-10-10"
+},
+{
+"name": "jasmine", 
+"rate": [8,9,9], 
+"birthdate": "1994-09-09"
+},
+{"name": "abu", 
+"rate": [2,2,3], 
+"birthdate": "1993-10-20"
+}
+]`;
+let personaggi=JSON.parse(person)
+//console.log(personaggi);
+function dammiPersonaggio(personaggi,comando) {
+    if (typeof comando != "string") {
+        throw new Error("Il secondo parametro inserito deve essere una stringa")
+    }
+    if (comando==="cicla") {
+        for(let personaggio of personaggi){
+            let eta=new Date().getFullYear()-new Date(personaggio.birthdate).getFullYear()
+            console.log(`Nome: ${personaggio.name} , Età: ${eta}, Rate ${personaggio.rate}`);
+        }
+    }
+    else if (comando==="giovane") {
+        let piuGiovane=personaggi[0];
+        for (let i = 0; i < personaggi.length; i++) {
+           let persona = personaggi[i];
+           if (new Date(persona.birthdate)>new Date(piuGiovane.birthdate)) {
+                    piuGiovane=persona
+           }
+        }
+        let etaGiovane=new Date().getFullYear()- new Date(piuGiovane.birthdate).getFullYear()
+        console.log(`Nome: ${piuGiovane.name} , Età: ${etaGiovane}, Rate ${piuGiovane.rate}`);
+    }
+    if (comando === "migliore") {
+        let personaMigliore = personaggi[0];
+        let sommaRatesMigliore = personaMigliore.rate[0] + personaMigliore.rate[1] + personaMigliore.rate[2];
+
+        for (let personaggio of personaggi) {
+            let sommaRates = personaggio.rate[0] + personaggio.rate[1] + personaggio.rate[2];
+            if (sommaRates > sommaRatesMigliore) {
+                personaMigliore = personaggio;
+                sommaRatesMigliore = sommaRates;
+            }          
+        }
+  
+        console.log(`Nome: ${personaMigliore.name}, Rates totali: ${sommaRatesMigliore}`);
+
+    } 
+    if (comando === "peggiore") {
+        let personaPeggiore = personaggi[0];
+        let sommaRatesPeggiore = personaPeggiore.rate[0] + personaPeggiore.rate[1] + personaPeggiore.rate[2];
+
+        for (let personaggio of personaggi) {
+            let sommaRates = personaggio.rate[0] + personaggio.rate[1] + personaggio.rate[2];
+            if (sommaRates < sommaRatesPeggiore) {
+                personaPeggiore = personaggio;
+                sommaRatesPeggiore = sommaRates;
+            }          
+        }
+  
+        console.log(`Nome: ${personaPeggiore.name}, Rates totali: ${sommaRatesPeggiore}`);
+
+    } 
+    
+    
+    //if(){
+    //    
+    //}
+
+}
+try {
+    (dammiPersonaggio(personaggi,10));
+} catch (error) {
+   console.log("Hai inserito un comando sbagliato");
+}
+console.log("-----------------------------------------");
+try {
+    ( dammiPersonaggio(personaggi, "cicla"));
+} catch (error) {
+    console.log(error.message);
+}
+console.log("-----------------------------------------");
+try {
+    ( dammiPersonaggio(personaggi, "giovane"));
+} catch (error) {
+    console.log(error.message);
+}
+console.log("-----------------------------------------");
+try {
+    (dammiPersonaggio(personaggi,"migliore"));
+} catch (error) {
+    console.log(error.message);
+}
+console.log("-----------------------------------------");
+try {
+    (dammiPersonaggio(personaggi,"peggiore"));
+} catch (error) {
+    console.log(error.message);
+}
+console.log("-----------------------------------------");
+
+
+}
+    </script>
+</body>
+</html>
